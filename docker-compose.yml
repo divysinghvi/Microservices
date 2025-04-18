@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  django_service:
+    build: ./django_service
+    container_name: django_serviced
+    ports:
+      - "8000:8000"
+    depends_on:
+      - notificationservice
+    networks:
+      - backend_net
+
+  notificationservice:
+    build: ./notificationservice
+    container_name: notificationservice
+    ports:
+      - "5001:5001"
+    networks:
+      - backend_net
+
+networks:
+  backend_net:
+    driver: bridge
